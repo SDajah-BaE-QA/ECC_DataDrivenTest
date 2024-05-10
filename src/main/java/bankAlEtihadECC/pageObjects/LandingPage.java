@@ -50,9 +50,9 @@ public class LandingPage extends AbstractComponents{
 	}
 	
 	
-	public void goTo()
+	public void goTo(String url)
 	{
-		driver.get("https://ecc-uat2.bankaletihad.com/UNION");
+		driver.get(url);
 //		detailsButton.click();
 //		proceedLink.click();
 //		detailsButton.click();

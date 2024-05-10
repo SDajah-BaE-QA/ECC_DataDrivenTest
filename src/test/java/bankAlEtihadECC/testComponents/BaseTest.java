@@ -87,7 +87,7 @@ public class BaseTest {
 	{
 		driver = initializeDriver();
 		landingPage=new LandingPage(driver);
-		landingPage.goTo();
+//		landingPage.goTo();
 		return landingPage;
 	}
 	

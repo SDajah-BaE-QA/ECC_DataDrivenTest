@@ -1,6 +1,7 @@
 [
 {
-	"testCaseName": "Outword Cheques",
-	"SheetName": "TestData"
+	"RunStat": "Y",
+	"SheetName": "Outword Cheques",
+	"URL": "https://ecc-uat2.bankaletihad.com/UNION"
 }
 ]

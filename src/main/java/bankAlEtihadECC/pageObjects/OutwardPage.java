@@ -100,8 +100,9 @@ public class OutwardPage extends AbstractComponents{
 	
 
 	
-	public  void createBatch()
+	public  void createBatch(String account, String amount1, String amount2)
 	{
+		int batchAmount= Integer.parseInt(amount1)+Integer.parseInt(amount2);
 		menuFrameToBeAvailable();
 		collaps.click();
 		outwardTab.click();
@@ -110,10 +111,10 @@ public class OutwardPage extends AbstractComponents{
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("MainFrame");
 		createBatchBtn.click();
-		accountNo1.sendKeys("0010100044115101");
+		accountNo1.sendKeys(account);
 		WebElement inputFieldAmount = driver.findElement(By.id("create-totalAmount"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputFieldAmount);
-        createTotalAmount.sendKeys("500");
+        createTotalAmount.sendKeys(String .valueOf(batchAmount));
 		WebElement inputFieldCount = driver.findElement(By.id("create-totalCount"));
         ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputFieldCount);
         createTotalCount.sendKeys("2");
@@ -121,7 +122,7 @@ public class OutwardPage extends AbstractComponents{
 		
 	}
 	
-	public String chequeInfo() throws InterruptedException
+	public String chequeInfo(String Cheque1,String amount1, String Cheque2,String amount2 ) throws InterruptedException
 	{
 		elementToBeClickable(batches);
 		
@@ -129,11 +130,11 @@ public class OutwardPage extends AbstractComponents{
 		batches1.click();
 	    alertWaitAndAccept();
 		chequeInfoTagEditButton.click();
-		Random random = new Random();
-	     // Generate a random 6-digit number
-	     int randomserial = 100000 + random.nextInt(900000);
-	     String serial = Integer.toString(randomserial);
-	     chqSerial.sendKeys(serial);
+//		Random random = new Random();
+//	     // Generate a random 6-digit number
+//	     int randomserial = 100000 + random.nextInt(900000);
+//	     String serial = Integer.toString(randomserial);
+	     chqSerial.sendKeys(Cheque1);
 	     payBankCode.sendKeys("09");
 	     Thread.sleep(1000);
 	     payBranchCode.sendKeys("1010");
@@ -141,7 +142,7 @@ public class OutwardPage extends AbstractComponents{
 	     transactionCode.sendKeys("001");
 	     WebElement chqAmount = chequeAmount;
 	     ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", chqAmount);
-	     chequeAmount.sendKeys("240");
+	     chequeAmount.sendKeys(amount1);
 	     if (driver.findElement(By.xpath("//*[@id='payBranchCodeTextField']")).getText()!= "1010")
 	     {
 	    	 payBankCode.sendKeys("09");
@@ -154,11 +155,11 @@ public class OutwardPage extends AbstractComponents{
 	     chequeInfoTagNext.click();
 	     alertWaitAndAccept();
 	     elementToBeClickable(editChequeInfo);
-	     Random random1 = new Random();
-	     // Generate a random 6-digit number
-	     int randomserial1 = 100000 + random1.nextInt(900000);
-	     String serial1 = Integer.toString(randomserial1);
-	     chqSerial.sendKeys(serial1);
+//	     Random random1 = new Random();
+//	     // Generate a random 6-digit number
+//	     int randomserial1 = 100000 + random1.nextInt(900000);
+//	     String serial1 = Integer.toString(randomserial1);
+	     chqSerial.sendKeys(Cheque2);
 	     payBankCode.sendKeys("09");
 	     Thread.sleep(1000);
 	     payBranchCode.sendKeys("1010");
@@ -166,7 +167,7 @@ public class OutwardPage extends AbstractComponents{
 	     transactionCode.sendKeys("001");
 	     WebElement chqAmount1 = chequeAmount;
 	     ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", chqAmount1);
-	     chequeAmount.sendKeys("260");
+	     chequeAmount.sendKeys(amount2);
 	     if (driver.findElement(By.xpath("//*[@id='payBranchCodeTextField']")).getText()!= "1010")
 	     {
 	    	 payBankCode.sendKeys("09");

@@ -26,11 +26,11 @@ public class DataDriven {
 	// test
 
 
-	public ArrayList getData(String testCaseName, String sheetName) throws IOException {
+	public ArrayList getData(String RunStat, String sheetName) throws IOException {
 		ArrayList<String> d = new ArrayList<String>();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\Administrator\\eclipse-workspace\\ExcelDriven\\src\\test\\resources\\demodata.xlsx");
+				"C:\\Users\\Administrator\\eclipse-workspace\\ExcelDriven\\src\\test\\resources\\demodata1.xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		int sheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < sheets; i++) {
@@ -45,7 +45,7 @@ public class DataDriven {
 				int column = 0;
 				while (cell.hasNext()) {
 					Cell value = cell.next();
-					if (value.getStringCellValue().equalsIgnoreCase("TestCases")) {
+					if (value.getStringCellValue().equalsIgnoreCase("RunStat")) {
 						column = k;
 					}
 					k++;
@@ -55,7 +55,7 @@ public class DataDriven {
 				// purchase test case row
 				while (rows.hasNext()) {
 					Row r = rows.next();
-					if (r.getCell(column).getStringCellValue().equalsIgnoreCase(testCaseName)) {
+					if (r.getCell(column).getStringCellValue().equalsIgnoreCase(RunStat)) {
 						// after you grab the purchase row = pull the data of that row and feed into
 						// test
 						Iterator<Cell> cv = r.cellIterator();
@@ -86,11 +86,11 @@ public class DataDriven {
 		ArrayList<String> a = new ArrayList<String>();
 
 		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\Administrator\\eclipse-workspace\\ExcelDriven\\src\\test\\resources\\demodata.xlsx");
+				"C:\\Users\\Administrator\\eclipse-workspace\\ExcelDriven\\src\\test\\resources\\demodata1.xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		int sheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < sheets; i++) {
-			if (workbook.getSheetName(i).equalsIgnoreCase("users")) {
+			if (workbook.getSheetName(i).equalsIgnoreCase("LoginInfo")) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
 				// indentify testcases column by scanning the entire list row
 
@@ -101,7 +101,7 @@ public class DataDriven {
 				int column = 0;
 				while (cell.hasNext()) {
 					Cell value = cell.next();
-					if (value.getStringCellValue().equalsIgnoreCase("UserName")) {
+					if (value.getStringCellValue().equalsIgnoreCase("Test")) {
 						column = k;
 					}
 					k++;
@@ -111,6 +111,7 @@ public class DataDriven {
 				// purchase test case row
 				while (rows.hasNext()) {
 					Row r = rows.next();
+					
 					Iterator<Cell> cv = r.cellIterator();
 						while (cv.hasNext()) {
 
@@ -124,19 +125,19 @@ public class DataDriven {
 							}
 						}
 
-					}
-
+					
 				}
 
 			}
 		
-		return a;
 	}
+		return a;
 
-
+	}
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
 	}
 
 }
+
