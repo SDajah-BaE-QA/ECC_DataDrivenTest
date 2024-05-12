@@ -29,8 +29,7 @@ public class DataDriven {
 	public ArrayList getData(String RunStat, String sheetName) throws IOException {
 		ArrayList<String> d = new ArrayList<String>();
 
-		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\Administrator\\eclipse-workspace1\\ECC_DataDrivenTest\\src\\test\\resources\\demodata1.xlsx");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		int sheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < sheets; i++) {
@@ -52,7 +51,6 @@ public class DataDriven {
 				}
 				
 				// once column is identified then scan entire Testcase column to identify
-				// purchase test case row
 				while (rows.hasNext()) {
 					Row r = rows.next();
 					if (r.getCell(column).getStringCellValue().equalsIgnoreCase(RunStat)) {
@@ -85,27 +83,21 @@ public class DataDriven {
 	public ArrayList getUserData() throws IOException {
 		ArrayList<String> a = new ArrayList<String>();
 
-		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\Administrator\\eclipse-workspace1\\ECC_DataDrivenTest\\src\\test\\resources\\demodata1.xlsx");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		int sheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < sheets; i++) {
 			if (workbook.getSheetName(i).equalsIgnoreCase("LoginInfo")) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
-				a.add(sheet.getRow(0).getCell(1).toString());
-				a.add(sheet.getRow(1).getCell(1).toString());
-				a.add(sheet.getRow(2).getCell(1).toString());
-
+				int rowNumber =sheet.getLastRowNum()-sheet.getFirstRowNum();
+						for(i=0; i<=rowNumber;i++)
+						{
+							a.add(sheet.getRow(i).getCell(1).toString());
+						}
 			}
 		
 	}
 		return a;
 
 	}
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-
-	}
-
 }
-
