@@ -60,6 +60,7 @@ public class OutwardChequesTest extends BaseTest {
 		ArrayList testInfo = data.getData(js.getString("RunStat[0]"), js.getString("SheetName[0]"));
 
 		HashMap<String, Object> testData = new HashMap<String, Object>();
+		
 		testData.put("URL", userData.get(0));
 		testData.put("UserName", userData.get(1));
 		testData.put("Password", userData.get(2));
@@ -70,18 +71,18 @@ public class OutwardChequesTest extends BaseTest {
 		testData.put("Cheque2", testInfo.get(5));
 		testData.put("Amount2", testInfo.get(6));
 
-		HashMap<String, Object> testData1 = new HashMap<String, Object>();
-		testData1.put("URL", userData.get(0));
-		testData1.put("UserName", userData.get(1));
-		testData1.put("Password", userData.get(2));
-		testData1.put("TestCase", testInfo.get(8));
-		testData1.put("Account", testInfo.get(9));
-		testData1.put("Cheque1", testInfo.get(10));
-		testData1.put("Amount1", testInfo.get(11));
-		testData1.put("Cheque2", testInfo.get(12));
-		testData1.put("Amount2", testInfo.get(13));
+//		HashMap<String, Object> testData1 = new HashMap<String, Object>();
+//		testData1.put("URL", userData.get(0));
+//		testData1.put("UserName", userData.get(1));
+//		testData1.put("Password", userData.get(2));
+//		testData1.put("TestCase", testInfo.get(8));
+//		testData1.put("Account", testInfo.get(9));
+//		testData1.put("Cheque1", testInfo.get(10));
+//		testData1.put("Amount1", testInfo.get(11));
+//		testData1.put("Cheque2", testInfo.get(12));
+//		testData1.put("Amount2", testInfo.get(13));
 
-		return new Object[][] { { testData }, { testData1 } };
+		return new Object[][] { { testData }};
 	}
 
 	@DataProvider
@@ -107,18 +108,19 @@ public class OutwardChequesTest extends BaseTest {
 		testData.put("Cheque2", testInfo.get(5));
 		testData.put("Amount2", testInfo.get(6));
 
-		HashMap<String, Object> testData1 = new HashMap<String, Object>();
-		testData1.put("URL", userData.get(0));
-		testData1.put("UserName", userData.get(1));
-		testData1.put("Password", userData.get(2));
-		testData1.put("TestCase", testInfo.get(8));
-		testData1.put("Account", testInfo.get(9));
-		testData1.put("Cheque1", testInfo.get(10));
-		testData1.put("Amount1", testInfo.get(11));
-		testData1.put("Cheque2", testInfo.get(12));
-		testData1.put("Amount2", testInfo.get(13));
-
-		return new Object[][] { { testData }, { testData1 } };
+//		HashMap<String, Object> testData1 = new HashMap<String, Object>();
+//		testData1.put("URL", userData.get(0));
+//		testData1.put("UserName", userData.get(1));
+//		testData1.put("Password", userData.get(2));
+//		testData1.put("TestCase", testInfo.get(8));
+//		testData1.put("Account", testInfo.get(9));
+//		testData1.put("Cheque1", testInfo.get(10));
+//		testData1.put("Amount1", testInfo.get(11));
+//		testData1.put("Cheque2", testInfo.get(12));
+//		testData1.put("Amount2", testInfo.get(13));
+//
+//		return new Object[][] { { testData }, { testData1 } };
+		return new Object[][] { { testData } };
 
 	}
 

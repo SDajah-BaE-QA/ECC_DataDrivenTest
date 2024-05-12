@@ -15,17 +15,17 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class test {
 
 	public static void main(String[] args) throws IOException {
-		
-		
+
 		ArrayList<String> d = new ArrayList<String>();
 
-		FileInputStream fis = new FileInputStream(
-				"C:\\Users\\Administrator\\eclipse-workspace\\ExcelDriven\\src\\test\\resources\\demodata1.xlsx");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		int sheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < sheets; i++) {
 			if (workbook.getSheetName(i).equalsIgnoreCase("Outword Cheques")) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
+				int totalRows = sheet.getLastRowNum()-sheet.getFirstRowNum();
+				d.add(NumberToTextConverter.toText(totalRows));
 				// indentify testcases column by scanning the entire list row
 
 				Iterator<Row> rows = sheet.iterator();
@@ -42,7 +42,6 @@ public class test {
 				}
 				
 				// once column is identified then scan entire Testcase column to identify
-				// purchase test case row
 				while (rows.hasNext()) {
 					Row r = rows.next();
 					if (r.getCell(column).getStringCellValue().equalsIgnoreCase("Y")) {
@@ -65,10 +64,13 @@ public class test {
 
 				}
 
-			}
-		}
-		System.out.println(d);
+			}}
+		
 
+		System.out.println(d);
 	}
 
+	public static void main() {
+
+	}
 }

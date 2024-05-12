@@ -35,6 +35,7 @@ public class DataDriven {
 		for (int i = 0; i < sheets; i++) {
 			if (workbook.getSheetName(i).equalsIgnoreCase(sheetName)) {
 				XSSFSheet sheet = workbook.getSheetAt(i);
+				int totalRows = sheet.getLastRowNum()-sheet.getFirstRowNum();
 				// indentify testcases column by scanning the entire list row
 
 				Iterator<Row> rows = sheet.iterator();
@@ -95,6 +96,7 @@ public class DataDriven {
 							a.add(sheet.getRow(i).getCell(1).toString());
 						}
 			}
+				
 		
 	}
 		return a;
