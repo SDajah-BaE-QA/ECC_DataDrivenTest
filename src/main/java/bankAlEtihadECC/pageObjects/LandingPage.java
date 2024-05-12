@@ -40,8 +40,9 @@ public class LandingPage extends AbstractComponents{
 //    <span>Logout</span> 
 
 	
-	public OutwardPage loginApplication(Object userLoginName, Object userPass )
+	public OutwardPage loginApplication(Object url, Object userLoginName, Object userPass )
 	{
+		driver.get(url.toString());
 		userName.sendKeys(userLoginName.toString());
 		userPassord.sendKeys(userPass.toString());
 		loginButton.click();
@@ -49,17 +50,18 @@ public class LandingPage extends AbstractComponents{
 		
 	}
 	
-	
-	public void goTo(String url)
-	{
-		driver.get(url);
-//		detailsButton.click();
-//		proceedLink.click();
-//		detailsButton.click();
-//		proceedLink.click();
-		
-	}
-	
+
+
+//	public void goTo(String url)
+//	{
+//		driver.get(url);
+////		detailsButton.click();
+////		proceedLink.click();
+////		detailsButton.click();
+////		proceedLink.click();
+//		
+//	}
+//	
 	
 	
 	

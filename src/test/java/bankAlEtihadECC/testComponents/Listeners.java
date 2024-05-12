@@ -67,19 +67,64 @@ public class Listeners extends BaseTest implements ITestListener {
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		// TODO Auto-generated method stub
+		 test.log(Status.FAIL, "Test is Skipped");
+		  extentTest.get().fail(result.getThrowable());
+		  try {
+				driver = (WebDriver)result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  String filePath = null;
+		try {
+			filePath = getScreenshot(result.getMethod().getMethodName(), driver);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		extentTest.get().addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
 		
 	}
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		// TODO Auto-generated method stub
+		 test.log(Status.FAIL, "Test is Failed with UnExpected Error");
+		  extentTest.get().fail(result.getThrowable());
+		  try {
+				driver = (WebDriver)result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  String filePath = null;
+		try {
+			filePath = getScreenshot(result.getMethod().getMethodName(), driver);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		extentTest.get().addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
 		
 	}
 
 	@Override
 	public void onTestFailedWithTimeout(ITestResult result) {
-		// TODO Auto-generated method stub
+		 test.log(Status.FAIL, "Test is Timeout");
+		  extentTest.get().fail(result.getThrowable());
+		  try {
+				driver = (WebDriver)result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  String filePath = null;
+		try {
+			filePath = getScreenshot(result.getMethod().getMethodName(), driver);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		extentTest.get().addScreenCaptureFromPath(filePath, result.getMethod().getMethodName());
 		
 	}
 

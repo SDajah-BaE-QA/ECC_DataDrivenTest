@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import bankAlEtihadECC.pageObjects.LandingPage;
 
-public class BaseTest {
+public  class BaseTest {
 	
 	
 	public WebDriver driver;

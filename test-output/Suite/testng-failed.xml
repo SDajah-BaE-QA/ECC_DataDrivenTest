@@ -8,9 +8,8 @@
     <classes>
       <class name="bankAlEtihadECC.tests.OutwardChequesTest">
         <methods>
-          <include name="outwardChequesTest" invocation-numbers="0"/>
+          <include name="outwardChequesTest" invocation-numbers="0 1"/>
           <include name="tearDown"/>
-          <include name="repairCheques" invocation-numbers="0"/>
           <include name="launchApplication"/>
         </methods>
       </class> <!-- bankAlEtihadECC.tests.OutwardChequesTest -->
