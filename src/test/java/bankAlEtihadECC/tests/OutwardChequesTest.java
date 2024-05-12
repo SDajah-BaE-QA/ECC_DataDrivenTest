@@ -22,6 +22,7 @@ import io.restassured.path.json.JsonPath;
 
 public class OutwardChequesTest extends BaseTest {
 
+<<<<<<< HEAD
 	@Test(dataProvider = "getOutwordData")
 	public void outwardChequesTest(HashMap<String, Object> input) throws IOException, InterruptedException {
 		landingPage.loginApplication(input.get("URL"), input.get("UserName"), input.get("Password"));
@@ -42,6 +43,44 @@ public class OutwardChequesTest extends BaseTest {
 				input.get("Amount2").toString());
 		String sequence = outwardPage.chequeInfo(input.get("Cheque1").toString(), input.get("Amount1").toString(),
 				input.get("Cheque2").toString(), input.get("Amount2").toString());
+=======
+
+public class OutwardChequesTest extends BaseTest{
+	
+	public OutwardChequesTest() throws IOException, InterruptedException {
+	String jsonContent = FileUtils.readFileToString(new File(System.getProperty("user.dir")+"\\src\\test\\java\\bankAlEtihadECC\\data\\TestData.json"), StandardCharsets.UTF_8);
+	JsonPath js = new JsonPath(jsonContent);
+		
+
+	if(js.getString("SheetName[0]")=="Outword Cheques")
+			{
+		      System.out.println("this is outword test");
+		outwardChequesTest(null);
+		      
+		      
+			}
+	
+	}
+
+	@Test(dataProvider= "getData")
+	public void outwardChequesTest(HashMap<String,Object> input) throws IOException, InterruptedException
+	{
+		landingPage.loginApplication(input.get("UserName"), input.get("Password"));
+		OutwardPage outwardPage=new OutwardPage(driver);
+		outwardPage.createBatch(input.get("Account").toString(),input.get("Amount1").toString(),input.get("Amount2").toString());
+		String sequence= outwardPage.chequeInfo(input.get("Cheque1").toString(),input.get("Amount1").toString(), input.get("Cheque2").toString(),input.get("Amount2").toString());
+		outwardPage.qualityAssuranceAccept(sequence);      
+		//test
+	}
+	
+	@Test(dataProvider= "getData", enabled=false)
+	public void repairCheques(HashMap<String,String> input) throws InterruptedException
+	{
+		landingPage.loginApplication(input.get("UserName"), input.get("Password"));
+		OutwardPage outwardPage=new OutwardPage(driver);
+		outwardPage.createBatch(input.get("Account").toString(),input.get("Amount1").toString(),input.get("Amount2").toString());
+		String sequence= outwardPage.chequeInfo(input.get("Cheque1").toString(),input.get("Amount1").toString(), input.get("Cheque2").toString(),input.get("Amount2").toString());
+>>>>>>> 95845b6 (save)
 		outwardPage.qualityAssuranceReject(sequence);
 		outwardPage.repairTab(sequence);
 		outwardPage.qualityAssuranceAccept(sequence);
