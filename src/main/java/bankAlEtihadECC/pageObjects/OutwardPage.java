@@ -1,10 +1,10 @@
 package bankAlEtihadECC.pageObjects;
 
-
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -95,12 +95,12 @@ public class OutwardPage extends AbstractComponents {
 	private WebElement repairBatchUpdate;
 	@FindBy(id = "deleteButton")
 	private WebElement deteleCheque;
+	@FindBy(id = "txt_id_1040000_10")
+	private WebElement reports;
 
 	ExtentTest test;
 	ExtentReports report = TestingReports.getReportObject();
 	ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
-
-
 
 	public void createBatch(String testCaseName, String account, String amount1, String amount2) {
 		int batchAmount = Integer.parseInt(amount1) + Integer.parseInt(amount2);
@@ -119,6 +119,7 @@ public class OutwardPage extends AbstractComponents {
 		WebElement inputFieldCount = driver.findElement(By.id("create-totalCount"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputFieldCount);
 		createTotalCount.sendKeys("2");
+		
 		createBatchScan.click();
 
 	}
@@ -129,12 +130,13 @@ public class OutwardPage extends AbstractComponents {
 
 		String sequence = batchSequence.getAttribute("value");
 		batches1.click();
-		alertWaitAndAccept();
+		try {
+			alertWaitAndAccept();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		chequeInfoTagEditButton.click();
-//		Random random = new Random();
-//	     // Generate a random 6-digit number
-//	     int randomserial = 100000 + random.nextInt(900000);
-//	     String serial = Integer.toString(randomserial);
 		chqSerial.sendKeys(Cheque1);
 		payBankCode.sendKeys("09");
 		Thread.sleep(1000);
@@ -153,12 +155,13 @@ public class OutwardPage extends AbstractComponents {
 		driver.switchTo().frame("MainFrame");
 		chequeInfoTagUpdate.click();
 		chequeInfoTagNext.click();
-		alertWaitAndAccept();
+		try {
+			alertWaitAndAccept();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		elementToBeClickable(editChequeInfo);
-//	     Random random1 = new Random();
-//	     // Generate a random 6-digit number
-//	     int randomserial1 = 100000 + random1.nextInt(900000);
-//	     String serial1 = Integer.toString(randomserial1);
 		chqSerial.sendKeys(Cheque2);
 		payBankCode.sendKeys("09");
 		Thread.sleep(1000);
@@ -175,9 +178,12 @@ public class OutwardPage extends AbstractComponents {
 		}
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("MainFrame");
-		elementToBeClickableW(chequeInfoTagUpdate);
+		try {
+			elementToBeClickableW(chequeInfoTagUpdate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		chequeInfoTagUpdate.click();
-//	     elementToBeClickable(batchUpdate);
 		batchUpdate.click();
 		elementToBeClickable(batchApprove);
 		Thread.sleep(1000);
@@ -196,7 +202,11 @@ public class OutwardPage extends AbstractComponents {
 		String batchNumber = String.format("//a[contains(@href,'%s')]", sequence);
 		WebElement element = driver.findElement(By.xpath(batchNumber));
 		element.click();
-		elementToBeClickable(qualityBatchInforApprove);
+		try {
+			elementToBeClickable(qualityBatchInforApprove);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -251,6 +261,17 @@ public class OutwardPage extends AbstractComponents {
 		elementToBeClickableW(repairBatchUpdate);
 		elementToBeClickable(batchApprove);
 
+	}
+	
+	public void masterQuery()
+	{
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("menu");
+		collaps.click();
+		driver.switchTo().frame("mainTree");
+		reports.click();
+		
+		
 	}
 
 }

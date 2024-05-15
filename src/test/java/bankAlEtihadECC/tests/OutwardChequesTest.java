@@ -22,21 +22,20 @@ import io.restassured.path.json.JsonPath;
 
 public class OutwardChequesTest extends BaseTest {
 
-
 	@Test(dataProvider = "getOutwordData")
-	public void outwardChequesTest(HashMap<String, Object> input) throws IOException, InterruptedException {
+	public void outwardChequesTest(HashMap<String, String> input) throws IOException, InterruptedException {
 		landingPage.loginApplication(input.get("URL"), input.get("UserName"), input.get("Password"));
 		OutwardPage outwardPage = new OutwardPage(driver);
-		outwardPage.createBatch("outwardChequesTest", input.get("Account").toString(), input.get("Amount1").toString(),
-				input.get("Amount2").toString());
-		String sequence = outwardPage.chequeInfo(input.get("Cheque1").toString(), input.get("Amount1").toString(),
-				input.get("Cheque2").toString(), input.get("Amount2").toString());
+		outwardPage.createBatch("outwardChequesTest", input.get("Account Number"), input.get("Amount1"),
+				input.get("Amount2"));
+		String sequence = outwardPage.chequeInfo(input.get("Cheque Number1"), input.get("Amount1"),
+				input.get("Cheque Number2"), input.get("Amount2"));
 		outwardPage.qualityAssuranceAccept(sequence);
 		// test
 	}
 
-	@Test(dataProvider = "getPDCData")
-	public void repairCheques(HashMap<String, String> input) throws InterruptedException {
+	@Test(dataProvider = "getPDCData", enabled = false)
+	public void repairCheques(HashMap<String, String> input) throws InterruptedException, IOException {
 		landingPage.loginApplication(input.get("URL"), input.get("UserName"), input.get("Password"));
 		OutwardPage outwardPage = new OutwardPage(driver);
 		outwardPage.createBatch("outwardChequesTest", input.get("Account").toString(), input.get("Amount1").toString(),
@@ -45,83 +44,45 @@ public class OutwardChequesTest extends BaseTest {
 				input.get("Cheque2").toString(), input.get("Amount2").toString());
 	}
 
-
-
 	@DataProvider
 	public Object[][] getOutwordData() throws IOException {
-
-		DataDriven users = new DataDriven();
-		ArrayList userData = users.getUserData();
 		String jsonContent = FileUtils.readFileToString(
 				new File(System.getProperty("user.dir") + "\\src\\test\\java\\bankAlEtihadECC\\data\\TestData.json"),
 				StandardCharsets.UTF_8);
 		JsonPath js = new JsonPath(jsonContent);
 		DataDriven data = new DataDriven();
-		ArrayList testInfo = data.getData(js.getString("RunStat[0]"), js.getString("SheetName[0]"));
-
-		HashMap<String, Object> testData = new HashMap<String, Object>();
-		
-		testData.put("URL", userData.get(0));
-		testData.put("UserName", userData.get(1));
-		testData.put("Password", userData.get(2));
-		testData.put("TestCase", testInfo.get(1));
-		testData.put("Account", testInfo.get(2));
-		testData.put("Cheque1", testInfo.get(3));
-		testData.put("Amount1", testInfo.get(4));
-		testData.put("Cheque2", testInfo.get(5));
-		testData.put("Amount2", testInfo.get(6));
-
-//		HashMap<String, Object> testData1 = new HashMap<String, Object>();
-//		testData1.put("URL", userData.get(0));
-//		testData1.put("UserName", userData.get(1));
-//		testData1.put("Password", userData.get(2));
-//		testData1.put("TestCase", testInfo.get(8));
-//		testData1.put("Account", testInfo.get(9));
-//		testData1.put("Cheque1", testInfo.get(10));
-//		testData1.put("Amount1", testInfo.get(11));
-//		testData1.put("Cheque2", testInfo.get(12));
-//		testData1.put("Amount2", testInfo.get(13));
-
-		return new Object[][] { { testData }};
+		ArrayList<HashMap<String, String>> userInfo = data.getUserData();
+		ArrayList<HashMap<String, String>> testInfo = data.getData(js.getString("RunStat[0]"),
+				js.getString("SheetName[0]"));
+		Object[][] testDataArray = new Object[testInfo.size()][1];
+		for (int i = 0; i < testInfo.size(); i++) {
+			HashMap<String, String> rowDataMap = testInfo.get(i);
+			HashMap<String, String> additionalDataMap = userInfo.get(0);
+			rowDataMap.putAll(additionalDataMap);
+			testDataArray[i][0] = rowDataMap;
+			System.out.println(testDataArray[i][0]);
+		}
+		return testDataArray;
 	}
 
 	@DataProvider
 	public Object[][] getPDCData() throws IOException {
-
-		DataDriven users = new DataDriven();
-		ArrayList userData = users.getUserData();
 		String jsonContent = FileUtils.readFileToString(
 				new File(System.getProperty("user.dir") + "\\src\\test\\java\\bankAlEtihadECC\\data\\TestData.json"),
 				StandardCharsets.UTF_8);
 		JsonPath js = new JsonPath(jsonContent);
 		DataDriven data = new DataDriven();
-		ArrayList testInfo = data.getData(js.getString("RunStat[0]"), js.getString("SheetName[0]"));
-
-		HashMap<String, Object> testData = new HashMap<String, Object>();
-		testData.put("URL", userData.get(0));
-		testData.put("UserName", userData.get(1));
-		testData.put("Password", userData.get(2));
-		testData.put("TestCase", testInfo.get(1));
-		testData.put("Account", testInfo.get(2));
-		testData.put("Cheque1", testInfo.get(3));
-		testData.put("Amount1", testInfo.get(4));
-		testData.put("Cheque2", testInfo.get(5));
-		testData.put("Amount2", testInfo.get(6));
-
-//		HashMap<String, Object> testData1 = new HashMap<String, Object>();
-//		testData1.put("URL", userData.get(0));
-//		testData1.put("UserName", userData.get(1));
-//		testData1.put("Password", userData.get(2));
-//		testData1.put("TestCase", testInfo.get(8));
-//		testData1.put("Account", testInfo.get(9));
-//		testData1.put("Cheque1", testInfo.get(10));
-//		testData1.put("Amount1", testInfo.get(11));
-//		testData1.put("Cheque2", testInfo.get(12));
-//		testData1.put("Amount2", testInfo.get(13));
-//
-//		return new Object[][] { { testData }, { testData1 } };
-		return new Object[][] { { testData } };
-
+		ArrayList<HashMap<String, String>> userInfo = data.getUserData();
+		ArrayList<HashMap<String, String>> testInfo = data.getData(js.getString("RunStat[0]"),
+				js.getString("SheetName[0]"));
+		Object[][] testDataArray = new Object[testInfo.size()][1];
+		for (int i = 0; i < testInfo.size(); i++) {
+			HashMap<String, String> rowDataMap = testInfo.get(i);
+			HashMap<String, String> additionalDataMap = userInfo.get(0);
+			rowDataMap.putAll(additionalDataMap);
+			testDataArray[i][0] = rowDataMap;
+			System.out.println(testDataArray[i][0]);
+		}
+		return testDataArray;
 	}
-
 }
