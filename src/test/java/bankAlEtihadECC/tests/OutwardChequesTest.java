@@ -2,61 +2,71 @@ package bankAlEtihadECC.tests;
 
 import org.testng.annotations.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 
 import bankAlEtihadECC.data.DataDriven;
 import bankAlEtihadECC.pageObjects.OutwardPage;
 import bankAlEtihadECC.testComponents.BaseTest;
-import io.restassured.path.json.JsonPath;
 
 public class OutwardChequesTest extends BaseTest {
 
 	@Test(dataProvider = "getOutwordData")
 	public void outwardChequesTest(HashMap<String, String> input) throws IOException, InterruptedException {
-		landingPage.loginApplication(input.get("URL"), input.get("UserName"), input.get("Password"));
-		OutwardPage outwardPage = new OutwardPage(driver);
-		outwardPage.createBatch("outwardChequesTest", input.get("Account Number"), input.get("Amount1"),
-				input.get("Amount2"));
-			String sequence = outwardPage.chequeInfo(input.get("Pay Account"), input.get("Cheque Number1"), input.get("Amount1"),
-				input.get("Cheque Number2"), input.get("Amount2"));
-		outwardPage.repairChoices(sequence, input.get("Repair"));
-		//outwardPage.qualityAssuranceAccept(sequence);
-		// test
-	}
+		String sequence = null;
+		int size = input.size();
+		int totalCheques = 0;
+		int totalAmount = 0;
+		for (int k = 0; k <= size; k++) {
+			String checkAmountKey = "Amount" + k;
+			if (input.containsKey(checkAmountKey)) {
+				int total = Integer.parseInt(input.get(checkAmountKey));
+				totalCheques = totalCheques + 1;
+				totalAmount = totalAmount + total;
+				System.out.println("total = " + total);
+				System.out.println("totalCheques = " + totalCheques);
+				System.out.println("totalAmount = " + totalAmount);
+			}
 
-	@Test(dataProvider = "getPDCData", enabled = false)
-	public void repairCheques(HashMap<String, String> input) throws InterruptedException, IOException {
+		}
+
 		landingPage.loginApplication(input.get("URL"), input.get("UserName"), input.get("Password"));
 		OutwardPage outwardPage = new OutwardPage(driver);
-		outwardPage.createBatch("outwardChequesTest", input.get("Account").toString(), input.get("Amount1").toString(),
-				input.get("Amount2").toString());
-		String sequence = outwardPage.chequeInfo(input.get("Pay Account"), input.get("Cheque Number1"), input.get("Amount1"),
-				input.get("Cheque Number2"), input.get("Amount2"));
+		outwardPage.createBatch(totalCheques, totalAmount, "outwardChequesTest", input.get("Account Number"),
+				input.get("Amount1"), input.get("Amount2"));
+		sequence = outwardPage.batchEnter();
+		for (int i = 1; i <= totalCheques; i++) {
+			String payAccountKey = "Pay Account" + i;
+			String chequeNumberKey = "Cheque Number" + i;
+			String amountKey = "Amount" + i;
+			// Debugging statements to verify keys and values
+			System.out.println("Pay Account Key: " + payAccountKey + ", Value: " + input.get(payAccountKey));
+			System.out.println("Cheque Number Key: " + chequeNumberKey + ", Value: " + input.get(chequeNumberKey));
+			System.out.println("Amount Key: " + amountKey + ", Value: " + input.get(amountKey));
+			outwardPage.chequeInfo(input.get(payAccountKey), input.get(chequeNumberKey), input.get(amountKey));
+			if (i < totalCheques)
+				outwardPage.nextCheque();
+
+		}
+		outwardPage.batchApprove();
+
+		String repairTest = outwardPage.repairChoices(input.get("Repair"));
+
+		if (repairTest == "Accept")
+			outwardPage.qualityAssuranceAccept(sequence);
+		else
+			outwardPage.qualityAssuranceReject(sequence);
 	}
 
 	@DataProvider
 	public Object[][] getOutwordData() throws IOException {
-//		String jsonContent = FileUtils.readFileToString(
-//				new File(System.getProperty("user.dir") + "\\src\\test\\java\\bankAlEtihadECC\\data\\TestData.json"),
-//				StandardCharsets.UTF_8);
-//		JsonPath js = new JsonPath(jsonContent);
-		
+
 		DataDriven data = new DataDriven();
 		String module = data.getModule();
-		ArrayList<HashMap<String, String>> userInfo = data.getUserData();	
-		ArrayList<HashMap<String, String>> testInfo = data.getData("Y",	module);
+		ArrayList<HashMap<String, String>> userInfo = data.getUserData();
+		ArrayList<HashMap<String, String>> testInfo = data.getData("Y", module);
 		Object[][] testDataArray = new Object[testInfo.size()][1];
 		for (int i = 0; i < testInfo.size(); i++) {
 			HashMap<String, String> rowDataMap = testInfo.get(i);

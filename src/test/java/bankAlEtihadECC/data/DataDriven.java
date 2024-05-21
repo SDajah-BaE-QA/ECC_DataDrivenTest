@@ -60,7 +60,7 @@ public class DataDriven {
 		return data;
 	}
 
-	public ArrayList getUserData() throws IOException {
+	public ArrayList<HashMap<String, String>> getUserData() throws IOException {
 
 		ArrayList<HashMap<String, String>> userData = new ArrayList<>();
 		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");

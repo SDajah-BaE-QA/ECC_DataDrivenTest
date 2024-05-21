@@ -100,9 +100,8 @@ public class OutwardPage extends AbstractComponents {
 	ExtentReports report = TestingReports.getReportObject();
 	ThreadLocal<ExtentTest> extentTest = new ThreadLocal<ExtentTest>();
 
-	
-	public void createBatch(String testCaseName, String account, String amount1, String amount2) {
-		int batchAmount = Integer.parseInt(amount1) + Integer.parseInt(amount2);
+	public void createBatch(int totalCheques, int totalAmount, String testCaseName, String account, String amount1,
+			String amount2) {
 		menuFrameToBeAvailable();
 		collaps.click();
 		outwardTab.click();
@@ -114,32 +113,53 @@ public class OutwardPage extends AbstractComponents {
 		accountNo1.sendKeys(account);
 		WebElement inputFieldAmount = driver.findElement(By.id("create-totalAmount"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputFieldAmount);
-		createTotalAmount.sendKeys(String.valueOf(batchAmount));
+		createTotalAmount.sendKeys(String.valueOf(totalAmount));
 		WebElement inputFieldCount = driver.findElement(By.id("create-totalCount"));
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputFieldCount);
-		createTotalCount.sendKeys("2");
-
+		createTotalCount.sendKeys(String.valueOf(totalCheques));
 		createBatchScan.click();
 
 	}
 
-	public String chequeInfo(String payAccount, String Cheque1, String amount1, String Cheque2, String amount2)
-			throws InterruptedException {
+	public String batchEnter() {
+		String sequence = batchSequence.getAttribute("value");
 
 		elementToBeClickable(batches);
-		String sequence = batchSequence.getAttribute("value");
 		batches1.click();
 		alertWaitAndAccept();
 		chequeInfoTagEditButton.click();
-		chqSerial.sendKeys(Cheque1);
-		WebElement payBankCd = chequeAmount;
-		
+		return sequence;
+	}
+
+	public void nextCheque() {
+		chequeInfoTagNext.click();
+		alertWaitAndAccept();
+		elementToBeClickable(editChequeInfo);
+	}
+
+	public void chequeInfo(String payAccount, String Cheque, String amount) throws InterruptedException {
+
+		chequeInfoTagEditButton.click();
+		WebElement chqAmount = chequeAmount;
+		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", chqAmount);
+		chequeAmount.clear();
+		chequeAmount.sendKeys(amount);
+
+		if (Cheque == null) {
+			Random random = new Random();
+			int randomserial1 = 100000 + random.nextInt(900000);
+			String chequeSerial = Integer.toString(randomserial1);
+			chqSerial.sendKeys(chequeSerial);
+		} else
+			chqSerial.sendKeys(Cheque);
+		WebElement payBankCd = payBankCode;
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd);
+		payBankCode.clear();
 		payBankCode.sendKeys("09");
-		
 		Thread.sleep(1000);
-		WebElement payBranchCd = chequeAmount;
+		WebElement payBranchCd = payBranchCode;
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
+		payBranchCode.clear();
 		payBranchCode.sendKeys("1010");
 		if (payAccount == null) {
 			Random random = new Random();
@@ -149,60 +169,70 @@ public class OutwardPage extends AbstractComponents {
 		} else
 			payAccountNumber.sendKeys(payAccount);
 		transactionCode.sendKeys("001");
-		WebElement chqAmount = chequeAmount;
-		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", chqAmount);
-		chequeAmount.sendKeys(amount1);
-		if (driver.findElement(By.xpath("//*[@id='payBranchCodeTextField']")).getCssValue("value") != "1010") {
-			payBankCode.sendKeys("09");
-			Thread.sleep(1000);
-			payBranchCode.sendKeys("1010");
-		}
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("MainFrame");
-		chequeInfoTagUpdate.click();
-		chequeInfoTagNext.click();
-		alertWaitAndAccept();
-		elementToBeClickable(editChequeInfo);
-		chqSerial.sendKeys(Cheque2);
-		WebElement payBankCd1 = chequeAmount;
-		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd1);
-		payBankCode.sendKeys("09");
-		Thread.sleep(1000);
-		WebElement payBranchCd1 = chequeAmount;
-		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd1);
-		payBranchCode.sendKeys("1010");
-		if (payAccount == null) {
-			Random random1 = new Random();
-			int randomserial1 = 1000000000 + random1.nextInt(900000000);
-			String serial1 = Integer.toString(randomserial1);
-			payAccountNumber.sendKeys(serial1);
-		} else
-			payAccountNumber.sendKeys(payAccount);
-		transactionCode.sendKeys("001");
-		WebElement chqAmount1 = chequeAmount;
-		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", chqAmount1);
-		chequeAmount.sendKeys(amount2);
-		if (driver.findElement(By.xpath("//*[@id='payBranchCodeTextField']")).getText() != "1010") {
+		try {
+			chequeInfoTagUpdate.click();
+			Thread.sleep(1000);
+			if (payBranchCode.getText().equalsIgnoreCase("1010"))
+				;
+			Thread.sleep(1000);
+		} catch (Exception e) {
+
+			WebElement payBankCd1 = payBankCode;
+			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd1);
+			payBankCode.clear();
 			payBankCode.sendKeys("09");
 			Thread.sleep(1000);
+			WebElement payBranchCd1 = payBranchCode;
+			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd1);
+			payBranchCode.clear();
 			payBranchCode.sendKeys("1010");
+			driver.switchTo().defaultContent();
+			driver.switchTo().frame("MainFrame");
 		}
+		try {
+			chequeInfoTagUpdate.click();
+			Thread.sleep(1000);
+			if (payBranchCode.getText().equalsIgnoreCase("1010"));
+			Thread.sleep(1000);
+		} catch (Exception e) {
+
+			WebElement payBankCd1 = payBankCode;
+			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd1);
+			payBankCode.clear();
+			payBankCode.sendKeys("09");
+			Thread.sleep(1000);
+			WebElement payBranchCd1 = payBranchCode;
+			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd1);
+			payBranchCode.clear();
+			payBranchCode.sendKeys("1010");
+			driver.switchTo().defaultContent();
+			driver.switchTo().frame("MainFrame");
+			elementToBeClickableW(chequeInfoTagUpdate);
+		}
+
+	}
+
+	public void batchApprove() throws InterruptedException {
 		driver.switchTo().defaultContent();
 		driver.switchTo().frame("MainFrame");
 		elementToBeClickableW(chequeInfoTagUpdate);
 		chequeInfoTagUpdate.click();
 		batchUpdate.click();
+		// String sequence = batchSequence.getAttribute("value");
 		elementToBeClickable(batchApprove);
 		Thread.sleep(1000);
-		return sequence;
-
+		// return sequence;
 	}
 
-	public void repairChoices(String sequence, String repair) throws InterruptedException {
+	public String repairChoices(String repair) throws InterruptedException {
+		String repairStatus = null;
 		if (repair.equalsIgnoreCase("Y"))
-			qualityAssuranceReject(sequence);
+			repairStatus = "Send to Repair";
 		else
-			qualityAssuranceAccept(sequence);
+			repairStatus = "Accept";
+		return repairStatus;
 
 	}
 
@@ -292,6 +322,5 @@ public class OutwardPage extends AbstractComponents {
 		reports.click();
 
 	}
-	
 
 }

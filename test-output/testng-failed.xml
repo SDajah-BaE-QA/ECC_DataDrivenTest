@@ -5,7 +5,7 @@
     <classes>
       <class name="bankAlEtihadECC.tests.OutwardChequesTest">
         <methods>
-          <include name="outwardChequesTest" invocation-numbers="0 1"/>
+          <include name="outwardChequesTest" invocation-numbers="0"/>
           <include name="launchApplication"/>
           <include name="tearDown"/>
         </methods>

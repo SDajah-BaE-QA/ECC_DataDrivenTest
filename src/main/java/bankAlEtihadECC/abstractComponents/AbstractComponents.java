@@ -24,34 +24,34 @@ public class AbstractComponents {
 	
 	public void menuFrameToBeAvailable()
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt("menu"));
 	}
 	
 	public void elementToBeClickable(By findBy)
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(findBy)).click();
 		
 	}
 	
 	public void elementToBeClickableW(WebElement findBy)
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(findBy)).click();
 		
 	}
 	
 	public void alertWaitAndAccept()
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         alert.accept();
 	}
 	
 	public String alertWaitAndmessage()
 	{
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         String alertMessage = alert.getText();
         return alertMessage;
