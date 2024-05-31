@@ -10,6 +10,7 @@ import org.testng.annotations.DataProvider;
 import bankAlEtihadECC.data.DataDriven;
 import bankAlEtihadECC.pageObjects.OutwardPage;
 import bankAlEtihadECC.testComponents.BaseTest;
+import bankAlEtihadECC.testComponents.Listeners;
 
 public class OutwardChequesTest extends BaseTest {
 
@@ -33,9 +34,13 @@ public class OutwardChequesTest extends BaseTest {
 		}
 
 		landingPage.loginApplication(input.get("URL"), input.get("UserName"), input.get("Password"));
+		Listeners.instanceScreenShot(driver, "Login Page");
+		landingPage.login();
 		OutwardPage outwardPage = new OutwardPage(driver);
-		outwardPage.createBatch(totalCheques, totalAmount, "outwardChequesTest", input.get("Account Number"),
+		outwardPage.batchData(totalCheques, totalAmount, input.get("TestCases"), input.get("Account Number"),
 				input.get("Amount1"), input.get("Amount2"));
+		Listeners.instanceScreenShot(driver, "New Batch");
+		outwardPage.createBatch();
 		sequence = outwardPage.batchEnter();
 		for (int i = 1; i <= totalCheques; i++) {
 			String payAccountKey = "Pay Account" + i;
@@ -46,18 +51,25 @@ public class OutwardChequesTest extends BaseTest {
 			System.out.println("Cheque Number Key: " + chequeNumberKey + ", Value: " + input.get(chequeNumberKey));
 			System.out.println("Amount Key: " + amountKey + ", Value: " + input.get(amountKey));
 			outwardPage.chequeInfo(input.get(payAccountKey), input.get(chequeNumberKey), input.get(amountKey));
+			Listeners.instanceScreenShot(driver, "Cheque Info");
+			outwardPage.checkUpdate();
 			if (i < totalCheques)
 				outwardPage.nextCheque();
 
 		}
 		outwardPage.batchApprove();
-
+		Listeners.instanceScreenShot(driver, "Batch Upload");
 		String repairTest = outwardPage.repairChoices(input.get("Repair"));
-
+		outwardPage.qualityAssurance(sequence);
+		Listeners.instanceScreenShot(driver, "Quality Assurnamce");
 		if (repairTest == "Accept")
 			outwardPage.qualityAssuranceAccept(sequence);
-		else
+		else {
 			outwardPage.qualityAssuranceReject(sequence);
+			outwardPage.repairTab(sequence);
+			Listeners.instanceScreenShot(driver, "Repair Batch");
+			outwardPage.approveRepair();
+		}
 	}
 
 	@DataProvider
@@ -65,8 +77,9 @@ public class OutwardChequesTest extends BaseTest {
 
 		DataDriven data = new DataDriven();
 		String module = data.getModule();
-		ArrayList<HashMap<String, String>> userInfo = data.getUserData();
+		ArrayList<HashMap<String, String>> userInfo = data.getTestInfo();
 		ArrayList<HashMap<String, String>> testInfo = data.getData("Y", module);
+		testInfo.removeIf(HashMap::isEmpty);
 		Object[][] testDataArray = new Object[testInfo.size()][1];
 		for (int i = 0; i < testInfo.size(); i++) {
 			HashMap<String, String> rowDataMap = testInfo.get(i);
@@ -75,6 +88,7 @@ public class OutwardChequesTest extends BaseTest {
 			testDataArray[i][0] = rowDataMap;
 			System.out.println(testDataArray[i][0]);
 		}
+			
 		return testDataArray;
 	}
 

@@ -7,15 +7,16 @@ public class TestingReports {
 	
 	public static ExtentReports getReportObject()
 	{
-		String path = System.getProperty("user.dir")+"\\reports\\index.html";
+		String path = "C:\\Users\\Administrator\\TestData\\index.html";
 		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
 		reporter.config().setReportName("Outward Cheques Test Reults");
 		reporter.config().setDocumentTitle("Test Reults");
 		
 		ExtentReports report = new ExtentReports();
 		report.attachReporter(reporter);
-		report.setSystemInfo("Tester", "Shadi Al Daajah");
+		report.setSystemInfo("Created By", "Shadi Al Daajah");
 		return report;
 	}
+	
 
 }

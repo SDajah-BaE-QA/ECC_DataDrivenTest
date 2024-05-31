@@ -1,12 +1,6 @@
 package bankAlEtihadECC.pageObjects;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,13 +39,18 @@ public class LandingPage extends AbstractComponents {
 //	<a href="https://10.2.12.42:8085/UNION/HeaderDispatchAction.do?action=logout" style="height:32px" target="_top" id="logout" xpath="1">
 //    <span>Logout</span> 
 
-	public OutwardPage loginApplication(Object url, Object userLoginName, Object userPass) throws IOException {
+	public void loginApplication(Object url, Object userLoginName, Object userPass) throws IOException {
 		driver.get(url.toString());
 		userName.sendKeys(userLoginName.toString());
 		userPassord.sendKeys(userPass.toString());
+//		loginButton.click();
+//		return new OutwardPage(driver);
+
+	}
+	
+	public OutwardPage login() {
 		loginButton.click();
 		return new OutwardPage(driver);
-
 	}
 
 //	

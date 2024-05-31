@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -72,12 +74,33 @@ public class BaseTest {
 
 	}
 
-	public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
+	public static String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
+		
+		// Format the current date and time
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+		String formattedDateTime = LocalDateTime.now().format(formatter);
+
+		// Take the screenshot
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		File screenshotFile = new File(System.getProperty("user.dir") + "reports" + testCaseName + ".png");
+
+		// Construct the path for the screenshot file
+		String filePath = "C:\\Users\\Administrator\\TestData\\" + File.separator + "Screenshots" + File.separator + testCaseName
+				+ "_" + formattedDateTime + ".png";
+		File screenshotFile = new File(filePath);
+
+		// Copy the screenshot to the desired location
 		FileUtils.copyFile(source, screenshotFile);
-		return System.getProperty("user.dir") + "reports" + testCaseName + ".png";
+
+		// Return the absolute path of the screenshot file
+		return screenshotFile.getAbsolutePath();
+		
+		
+//		TakesScreenshot ts = (TakesScreenshot) driver;
+//		File source = ts.getScreenshotAs(OutputType.FILE);
+//		File screenshotFile = new File(System.getProperty("user.dir") + "reports" + testCaseName + ".png");
+//		FileUtils.copyFile(source, screenshotFile);
+//		return System.getProperty("user.dir") + "reports" + testCaseName + ".png";
 	}
 
 	@BeforeMethod

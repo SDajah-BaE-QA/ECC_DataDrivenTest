@@ -15,7 +15,7 @@ public class DataDriven {
 
 	public ArrayList<HashMap<String, String>> getData(String runStat, String sheetName) throws IOException {
 		ArrayList<HashMap<String, String>> data = new ArrayList<>();
-		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\TestData\\demodata1.xlsx");
 		try (XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 			XSSFSheet sheet = workbook.getSheet(sheetName);
 			Iterator<Row> rows = sheet.iterator();
@@ -60,10 +60,10 @@ public class DataDriven {
 		return data;
 	}
 
-	public ArrayList<HashMap<String, String>> getUserData() throws IOException {
+	public ArrayList<HashMap<String, String>> getTestInfo() throws IOException {
 
 		ArrayList<HashMap<String, String>> userData = new ArrayList<>();
-		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\TestData\\demodata1.xlsx");
 		try (XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 			XSSFSheet sheet = workbook.getSheet("TestInfo");
 			Iterator<Row> rows = sheet.iterator();
@@ -107,11 +107,11 @@ public class DataDriven {
 	public String getModule() throws IOException {
 
 		
-		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\demodata1.xlsx");
+		FileInputStream fis = new FileInputStream("C:\\Users\\Administrator\\TestData\\demodata1.xlsx");
 		try (XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
 			XSSFSheet sheet = workbook.getSheet("TestInfo");
 			Iterator<Row> rows = sheet.iterator();
-			Row headerRow = rows.next();
+			rows.next();
 			String module = sheet.getRow(1).getCell(3).getStringCellValue();
 			return module;
 		}
