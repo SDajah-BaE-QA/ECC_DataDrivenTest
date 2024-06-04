@@ -11,10 +11,11 @@ import bankAlEtihadECC.data.DataDriven;
 import bankAlEtihadECC.pageObjects.OutwardPage;
 import bankAlEtihadECC.testComponents.BaseTest;
 import bankAlEtihadECC.testComponents.Listeners;
+import bankAlEtihadECC.testComponents.Retry;
 
 public class OutwardChequesTest extends BaseTest {
 
-	@Test(dataProvider = "getOutwordData")
+	@Test(dataProvider = "getOutwordData", retryAnalyzer = Retry.class)
 	public void outwardChequesTest(HashMap<String, String> input) throws IOException, InterruptedException {
 		String sequence = null;
 		int size = input.size();
@@ -23,7 +24,7 @@ public class OutwardChequesTest extends BaseTest {
 		for (int k = 0; k <= size; k++) {
 			String checkAmountKey = "Amount" + k;
 			if (input.containsKey(checkAmountKey)) {
-				int total = Integer.parseInt(input.get(checkAmountKey));
+				int total = Integer.parseInt(input.get(checkAmountKey).trim());
 				totalCheques = totalCheques + 1;
 				totalAmount = totalAmount + total;
 				System.out.println("total = " + total);
@@ -43,14 +44,18 @@ public class OutwardChequesTest extends BaseTest {
 		outwardPage.createBatch();
 		sequence = outwardPage.batchEnter();
 		for (int i = 1; i <= totalCheques; i++) {
+			String payBankKey = "Pay Bank" + i;
+			String payBranchKey = "Pay Branch" + i;
 			String payAccountKey = "Pay Account" + i;
 			String chequeNumberKey = "Cheque Number" + i;
 			String amountKey = "Amount" + i;
 			// Debugging statements to verify keys and values
+			System.out.println("Pay Bank Key: " + payBankKey + ", Value: " + input.get(payBankKey));
+			System.out.println("Pay Branch Key: " + payBranchKey + ", Value: " + input.get(payBranchKey));
 			System.out.println("Pay Account Key: " + payAccountKey + ", Value: " + input.get(payAccountKey));
 			System.out.println("Cheque Number Key: " + chequeNumberKey + ", Value: " + input.get(chequeNumberKey));
 			System.out.println("Amount Key: " + amountKey + ", Value: " + input.get(amountKey));
-			outwardPage.chequeInfo(input.get(payAccountKey), input.get(chequeNumberKey), input.get(amountKey));
+			outwardPage.chequeInfo(input.get(payBankKey), input.get(payBranchKey), input.get(payAccountKey), input.get(chequeNumberKey), input.get(amountKey));
 			Listeners.instanceScreenShot(driver, "Cheque Info");
 			outwardPage.checkUpdate();
 			if (i < totalCheques)

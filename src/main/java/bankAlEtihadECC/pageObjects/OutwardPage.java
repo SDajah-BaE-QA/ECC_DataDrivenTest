@@ -134,7 +134,7 @@ public class OutwardPage extends AbstractComponents {
 	
 	
 
-	public void chequeInfo(String payAccount, String Cheque, String amount) throws InterruptedException {
+	public void chequeInfo(String payBank, String payBranch, String payAccount, String Cheque, String amount) throws InterruptedException {
 
 		chequeInfoTagEditButton.click();
 		WebElement chqAmount = chequeAmount;
@@ -149,15 +149,25 @@ public class OutwardPage extends AbstractComponents {
 			chqSerial.sendKeys(chequeSerial);
 		} else
 			chqSerial.sendKeys(Cheque);
-		WebElement payBankCd = payBankCode;
-		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd);
-		payBankCode.clear();
-		payBankCode.sendKeys("09");
-		Thread.sleep(100);
-		WebElement payBranchCd = payBranchCode;
-		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
-		payBranchCode.clear();
-		payBranchCode.sendKeys("1010");
+//		WebElement payBankCd = payBankCode;
+//		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd);
+//		payBankCode.clear();
+//		if (payBank == null) {
+//			payBankCode.sendKeys("09");
+//		} else
+//		payBankCode.sendKeys(payBank);
+		
+		payBank(payBank);
+		Thread.sleep(1000);
+		payBranch(payBranch);
+//		WebElement payBranchCd = payBranchCode;
+//		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
+//		payBranchCode.clear();
+//		if (payBranch == null) {
+//			payBranchCode.sendKeys("1010");
+//		} else
+//			payBranchCode.sendKeys(payBranch);
+		
 		if (payAccount == null) {
 			Random random = new Random();
 			int randomserial1 = 1000000000 + random.nextInt(900000000);
@@ -166,55 +176,43 @@ public class OutwardPage extends AbstractComponents {
 		} else
 			payAccountNumber.sendKeys(payAccount);
 		transactionCode.sendKeys("001");
-//		try {
-			if(payBranchCode.getAttribute("value").toString().equalsIgnoreCase("1010"))
+
+			if(payBranchCode.getAttribute("value").toString().equalsIgnoreCase("1010") || payBranchCode.getAttribute("value").toString().equalsIgnoreCase(payBranch))
 			chequeInfoTagUpdate.click();
 			else {
-//		} catch (Exception e) {
-
-			WebElement payBankCd1 = payBankCode;
-			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd1);
-			payBankCode.clear();
-			payBankCode.sendKeys("09");
-			Thread.sleep(100);
-			WebElement payBranchCd1 = payBranchCode;
-			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd1);
-			payBranchCode.clear();
-			payBranchCode.sendKeys("1010");
-			}
-			if(payBranchCode.getAttribute("value").toString().equalsIgnoreCase("1010"))
-				chequeInfoTagUpdate.click();
+				payBank(payBank);
+				Thread.sleep(1000);
+				payBranch(payBranch);
+				if(payBranchCode.getAttribute("value").toString().equalsIgnoreCase("1010") || payBranchCode.getAttribute("value").toString().equalsIgnoreCase(payBranch))
+					chequeInfoTagUpdate.click();
 				else {
-//			} catch (Exception e) {
-
-				WebElement payBankCd1 = payBankCode;
-				((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd1);
-				payBankCode.clear();
-				payBankCode.sendKeys("09");
-				Thread.sleep(100);
-				WebElement payBranchCd1 = payBranchCode;
-				((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd1);
-				payBranchCode.clear();
-				payBranchCode.sendKeys("1010");
-				if(payBranchCode.getAttribute("value").toString().equalsIgnoreCase("1010"))
-				chequeInfoTagUpdate.click();
-				else {
-//					} catch (Exception e) {
-
-						WebElement payBankCd11 = payBankCode;
-						((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd11);
-						payBankCode.clear();
-						payBankCode.sendKeys("09");
-						Thread.sleep(100);
-						WebElement payBranchCd11 = payBranchCode;
-						((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd11);
-						payBranchCode.clear();
-						payBranchCode.sendKeys("1010");
-						if(payBranchCode.getAttribute("value").toString().equalsIgnoreCase("1010"))
+					payBank(payBank);
+					Thread.sleep(1000);
+					payBranch(payBranch);
 						chequeInfoTagUpdate.click();
 						}
 				}
 //		}
+	}
+	
+	public void payBank(String payBank) {
+		WebElement payBankCd = payBankCode;
+		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd);
+		payBankCode.clear();
+		if (payBank == null) {
+			payBankCode.sendKeys("09");
+		} else
+		payBankCode.sendKeys(payBank);
+	}
+	
+	public void payBranch(String payBranch) {
+		WebElement payBranchCd = payBranchCode;
+		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
+		payBranchCode.clear();
+		if (payBranch == null) {
+			payBranchCode.sendKeys("1010");
+		} else
+			payBranchCode.sendKeys(payBranch);
 	}
 	
 	public void checkUpdate() {

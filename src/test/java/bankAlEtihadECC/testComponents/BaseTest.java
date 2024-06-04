@@ -18,6 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -42,7 +43,15 @@ public class BaseTest {
 		if (browserName.equalsIgnoreCase("edge")) {
 			System.setProperty("webdriver.edg.driver",
 					"D:/SHADI_TEST/Software/WebDriver/edgedriver_win64/msedgedriver.exe");
-			driver = new EdgeDriver();
+			EdgeOptions options = new EdgeOptions();
+	        String userProfile = "/path/to/custom/edge/profile";
+	        new File(userProfile).mkdirs();
+	        options.addArguments("user-data-dir=" + userProfile);
+	        options.addArguments("disable-features=msEdgeWelcomePage,msEdgeFirstRun");
+	        options.addArguments("no-first-run");
+	        options.addArguments("disable-popup-blocking");
+	        driver = new EdgeDriver(options);
+			
 
 		} else if (browserName.contains("chrome")) {
 			System.setProperty("webdriver.chrome.driver",
