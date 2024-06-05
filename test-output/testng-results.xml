@@ -1,85 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2024-06-04T09:37:50 AST" name="Suite" finished-at="2024-06-04T09:40:28 AST" duration-ms="158027">
+  <suite started-at="2024-06-05T08:55:42 AST" name="Suite" finished-at="2024-06-05T08:56:54 AST" duration-ms="72700">
     <groups>
     </groups>
-    <test started-at="2024-06-04T09:37:50 AST" name="Test" finished-at="2024-06-04T09:40:28 AST" duration-ms="158027">
+    <test started-at="2024-06-05T08:55:42 AST" name="Test" finished-at="2024-06-05T08:56:54 AST" duration-ms="72700">
       <class name="bankAlEtihadECC.tests.OutwardChequesTest">
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:37:51 AST" name="launchApplication" finished-at="2024-06-04T09:37:56 AST" duration-ms="5224" status="PASS">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-05T08:55:42 AST" name="launchApplication" finished-at="2024-06-05T08:55:47 AST" duration-ms="5156" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchApplication -->
-        <test-method signature="outwardChequesTest(java.util.HashMap)[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:37:56 AST" name="outwardChequesTest" data-provider="getOutwordData" finished-at="2024-06-04T09:38:27 AST" duration-ms="31504" status="PASS">
+        <test-method signature="outwardChequesTest(java.util.HashMap)[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-05T08:55:47 AST" name="outwardChequesTest" data-provider="getOutwordData" finished-at="2024-06-05T08:56:16 AST" duration-ms="28346" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Pay Branch1=2300, Account Number=0010130830415101, UserName=SD2023, RunStat=Y, Cheque Number1=004422, Pay Bank1=22, URL=https://ecc-uat2.bankaletihad.com/UNION, Amount1=15000, Test Case=Test Case 1, Pay Account1=0179780013029000, Module=Outword Cheques, Repair=N, Password=Test@111}]]>
+                <![CDATA[{Pay Branch1=2300, Account Number=0010130830415101, UserName=SD2023, RunStat=Y, Cheque Number1=050617, Pay Bank1=22, URL=https://ecc-uat2.bankaletihad.com/UNION, Amount1=15000, Test Case=Test Case 1, Pay Account1=0179780013029000, Module=Outword Cheques, Repair=N, Password=Test@111}]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- outwardChequesTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:38:27 AST" name="tearDown" finished-at="2024-06-04T09:38:32 AST" duration-ms="4415" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-05T08:56:16 AST" name="tearDown" finished-at="2024-06-05T08:56:18 AST" duration-ms="1937" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:38:32 AST" name="launchApplication" finished-at="2024-06-04T09:38:36 AST" duration-ms="3928" status="PASS">
+        <test-method is-config="true" signature="launchApplication()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-05T08:56:18 AST" name="launchApplication" finished-at="2024-06-05T08:56:23 AST" duration-ms="5785" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- launchApplication -->
-        <test-method signature="outwardChequesTest(java.util.HashMap)[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:38:36 AST" name="outwardChequesTest" data-provider="getOutwordData" finished-at="2024-06-04T09:39:05 AST" duration-ms="29462" status="PASS">
+        <test-method signature="outwardChequesTest(java.util.HashMap)[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-05T08:56:23 AST" name="outwardChequesTest" data-provider="getOutwordData" finished-at="2024-06-05T08:56:52 AST" duration-ms="28803" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[{Pay Branch1=2340, Account Number=0010130830415101, UserName=SD2023, RunStat=Y, Cheque Number1=001862, Pay Bank1=22, URL=https://ecc-uat2.bankaletihad.com/UNION, Amount1=20000, Test Case=Test Case 2, Pay Account1=0300072013003001, Module=Outword Cheques, Repair=N, Password=Test@111}]]>
+                <![CDATA[{Pay Branch1=2340, Account Number=0010130830415101, UserName=SD2023, RunStat=Y, Cheque Number1=050616, Pay Bank1=22, URL=https://ecc-uat2.bankaletihad.com/UNION, Amount1=20000, Test Case=Test Case 2, Pay Account1=0300072013003001, Module=Outword Cheques, Repair=N, Password=Test@111}]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- outwardChequesTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:39:05 AST" name="tearDown" finished-at="2024-06-04T09:39:10 AST" duration-ms="4397" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:39:10 AST" name="launchApplication" finished-at="2024-06-04T09:39:14 AST" duration-ms="4026" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- launchApplication -->
-        <test-method signature="outwardChequesTest(java.util.HashMap)[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:39:14 AST" name="outwardChequesTest" data-provider="getOutwordData" finished-at="2024-06-04T09:39:43 AST" duration-ms="28956" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{Pay Branch1=2090, Account Number=0010130830415101, UserName=SD2023, RunStat=Y, Cheque Number1=000114, Pay Bank1=22, URL=https://ecc-uat2.bankaletihad.com/UNION, Amount1=25000, Test Case=Test Case 3, Pay Account1=0306666013023000, Module=Outword Cheques, Repair=N, Password=Test@111}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- outwardChequesTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:39:43 AST" name="tearDown" finished-at="2024-06-04T09:39:47 AST" duration-ms="4395" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="launchApplication()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:39:47 AST" name="launchApplication" finished-at="2024-06-04T09:39:51 AST" duration-ms="3926" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- launchApplication -->
-        <test-method signature="outwardChequesTest(java.util.HashMap)[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:39:51 AST" name="outwardChequesTest" data-provider="getOutwordData" finished-at="2024-06-04T09:40:23 AST" duration-ms="32300" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[{Pay Branch1=2260, Account Number=0010130830415101, UserName=SD2023, RunStat=Y, Cheque Number1=000829, Pay Bank1=22, URL=https://ecc-uat2.bankaletihad.com/UNION, Amount1=500, Test Case=Test Case 4, Pay Account1=0275849013090000, Module=Outword Cheques, Repair=N, Password=Test@111}]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- outwardChequesTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-04T09:40:24 AST" name="tearDown" finished-at="2024-06-04T09:40:28 AST" duration-ms="4381" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:bankAlEtihadECC.tests.OutwardChequesTest@65a15628]" started-at="2024-06-05T08:56:52 AST" name="tearDown" finished-at="2024-06-05T08:56:54 AST" duration-ms="1877" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

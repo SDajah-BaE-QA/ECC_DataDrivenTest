@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
 import bankAlEtihadECC.abstractComponents.AbstractComponents;
 
 public class OutwardPage extends AbstractComponents {
@@ -114,6 +116,7 @@ public class OutwardPage extends AbstractComponents {
 	
 	public void createBatch() {
 		createBatchScan.click();
+		
 	}
 
 	public String batchEnter() {
@@ -158,7 +161,7 @@ public class OutwardPage extends AbstractComponents {
 //		payBankCode.sendKeys(payBank);
 		
 		payBank(payBank);
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		payBranch(payBranch);
 //		WebElement payBranchCd = payBranchCode;
 //		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
@@ -196,24 +199,44 @@ public class OutwardPage extends AbstractComponents {
 	}
 	
 	public void payBank(String payBank) {
+		WebElement payBankName = driver.findElement(By.id("payBankSelect"));
+		Select banksList = new Select(payBankName);
 		WebElement payBankCd = payBankCode;
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd);
 		payBankCode.clear();
 		if (payBank == null) {
-			payBankCode.sendKeys("09");
+			banksList.selectByValue("09");
 		} else
-		payBankCode.sendKeys(payBank);
+		banksList.selectByValue(payBank);
+//		WebElement payBankCd = payBankCode;
+//		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBankCd);
+//		payBankCode.clear();
+//		if (payBank == null) {
+//			payBankCode.sendKeys("09");
+//		} else
+//		payBankCode.sendKeys(payBank);
 	}
 	
 	public void payBranch(String payBranch) {
+		WebElement payBranchName = driver.findElement(By.id("payBranch"));
+		Select banksList = new Select(payBranchName);
 		WebElement payBranchCd = payBranchCode;
 		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
 		payBranchCode.clear();
 		if (payBranch == null) {
-			payBranchCode.sendKeys("1010");
-		} else
-			payBranchCode.sendKeys(payBranch);
-	}
+			banksList.selectByValue("1010");
+			} else
+				banksList.selectByValue(payBranch);
+		}
+		
+//		WebElement payBranchCd = payBranchCode;
+//		((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", payBranchCd);
+//		payBranchCode.clear();
+//		if (payBranch == null) {
+//			payBranchCode.sendKeys("1010");
+//		} else
+//			payBranchCode.sendKeys(payBranch);
+//	}
 	
 	public void checkUpdate() {
 		elementToBeClickableW(chequeInfoTagUpdate);
@@ -227,7 +250,6 @@ public class OutwardPage extends AbstractComponents {
 //		driver.switchTo().frame("MainFrame");
 //		elementToBeClickableW(chequeInfoTagUpdate);
 //		chequeInfoTagUpdate.click();
-		batchUpdate.click();
 		// String sequence = batchSequence.getAttribute("value");
 		elementToBeClickable(batchApprove);
 		Thread.sleep(1000);
@@ -342,6 +364,14 @@ public class OutwardPage extends AbstractComponents {
 		driver.switchTo().frame("mainTree");
 		reports.click();
 
+	}
+	
+	
+	public void logout() throws InterruptedException {
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("header");
+		driver.findElement(By.id("logout")).click();
+		Thread.sleep(500);
 	}
 
 }

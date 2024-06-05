@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 
 import bankAlEtihadECC.data.DataDriven;
@@ -75,7 +77,10 @@ public class OutwardChequesTest extends BaseTest {
 			Listeners.instanceScreenShot(driver, "Repair Batch");
 			outwardPage.approveRepair();
 		}
+//		outwardPage.logout();
+//		Listeners.instanceScreenShot(driver, "logout");
 	}
+	
 
 	@DataProvider
 	public Object[][] getOutwordData() throws IOException {
